@@ -1,24 +1,24 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CustomerController } from './controller/customer.controller';
-import { ProductController } from './controller/product.controller';
-import { UserController } from './controller/user.controller';
-import { CustomerService } from './service/customer.service';
-import { ProductService } from './service/product.service';
-import { UserService } from './service/user.service';
+import { CustomerController } from './customer/customer.controller';
+import { CustomerService } from './customer/customer.service';
+import { ProductController } from './product/product.controller';
+import { ProductService } from './product/product.service';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost/teadb'),
+    UserModule],
   controllers: [
     AppController,
-    UserController,
     ProductController,
     CustomerController
   ],
   providers: [
     AppService,
-    UserService,
     ProductService,
     CustomerService
   ],

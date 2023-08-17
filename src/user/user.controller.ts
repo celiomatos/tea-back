@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req } from "@nestjs/common";
 import { Request } from "express";
 import { Pagination } from "src/model/pagination";
-import { User } from "src/model/user";
-import { UserService } from "src/service/user.service";
+import { User } from "src/user/user.schema";
+import { UserService } from "src/user/user.service";
 
 @Controller('/user')
 export class UserController {
@@ -10,27 +10,27 @@ export class UserController {
     constructor(private readonly service: UserService) { }
 
     @Get()
-    findAll(@Req() req: Request): User[] | Pagination<User> {
+    async findAll(@Req() req: Request): Promise<User[] | Pagination<User>> {
         return this.service.findAll(req.query);
     }
 
     @Get(':/id')
-    findById(@Param() id: number): User {
+    async findById(@Param() id: string): Promise<User> {
         return null;
     }
 
     @Post()
-    save(@Body() body: User): User {
-        return null;
+    async save(@Body() user: User): Promise<User> {
+        return this.service.save(user);
     }
 
     @Put('/:id')
-    update(@Param() id: number, @Body() body: User) {
+    async update(@Param() id: string, @Body() user: User): Promise<User> {
         return null;
     }
 
     @Delete('/:id')
-    delete(@Param() id: number): boolean {
-        return true;
+    async delete(@Param() id: string): Promise<User> {
+        return null;
     }
 }

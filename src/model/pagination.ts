@@ -1,6 +1,5 @@
-import { GenericModel } from "./generic-model";
 
-export class Pagination<M extends GenericModel> {
+export class Pagination<M> {
     model: M[];
     size: number;
     page: number;
