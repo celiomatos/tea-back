@@ -4,6 +4,6 @@ import { Document } from "mongoose";
 @Schema({ versionKey: false })
 export class Company extends Document {
 
-    @Prop({ required: true })
+    @Prop({ required: true, immutable: true })
     name: string;
 }

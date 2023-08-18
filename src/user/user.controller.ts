@@ -11,7 +11,7 @@ export class UserController {
 
     @Get()
     async findAll(@Req() req: Request): Promise<User[] | Pagination<User>> {
-        return this.service.findAll(req.query);
+        return await this.service.findAll(req.query);
     }
 
     @Get(':/id')
