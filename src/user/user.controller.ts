@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req } from "@nestjs/common";
 import { Request } from "express";
 import { Pagination } from "src/model/pagination";
+import { TeaException } from "src/model/tea-exception";
 import { User } from "src/user/user.schema";
 import { UserService } from "src/user/user.service";
 
@@ -14,9 +15,9 @@ export class UserController {
         return await this.service.findAll(req.query);
     }
 
-    @Get(':/id')
-    async findById(@Param() id: string): Promise<User> {
-        return null;
+    @Get('/:_id')
+    async findById(@Param() _id: string): Promise<User> {
+        throw new TeaException('Usuário não encontrado');
     }
 
     @Post()
@@ -24,13 +25,13 @@ export class UserController {
         return this.service.save(user);
     }
 
-    @Put('/:id')
-    async update(@Param() id: string, @Body() user: User): Promise<User> {
+    @Put('/:_id')
+    async update(@Param() _id: string, @Body() user: User): Promise<User> {
         return null;
     }
 
-    @Delete('/:id')
-    async delete(@Param() id: string): Promise<User> {
-        return null;
+    @Delete('/:_id')
+    async delete(@Param() _id: string): Promise<User> {
+        return this.service.delete(_id);
     }
 }

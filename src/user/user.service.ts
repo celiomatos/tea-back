@@ -9,31 +9,57 @@ export class UserService {
 
     constructor(@InjectModel('User') private readonly model: Model<User>) { }
 
+    /**
+     * 
+     * @param query 
+     * @returns 
+     */
     async findAll(query: any): Promise<User[] | Pagination<User>> {
 
         const search = this.mountQuery(query);
-        console.log(search);
         const projection = this.mountProjection(query);
-        console.log(projection);
+
         return await this.model.find(search, projection).exec();
     }
 
+    /**
+     * 
+     * @param user 
+     * @returns 
+     */
     async save(user: User): Promise<User> {
         return new this.model(user).save();
     }
 
-    mountQuery(query: any): any {
-        console.log(query);
+    /**
+     * 
+     * @param _id 
+     * @returns 
+     */
+    async delete(_id: string): Promise<User> {
+        return this.model.findByIdAndDelete(new Object(_id));
+    }
 
+    /**
+     * 
+     * @param query 
+     * @returns 
+     */
+    mountQuery(query: any): any {
         const search = {}
         search["company._id"] = "64de77dcc405801c825cd199";
-        if (query['name']) search['name'] = new RegExp('\\b' + query['name'] + '\\b', 'i');
+
+        if (query['name']) search['name'] = new RegExp(query['name'], 'i');
 
         return search;
     }
 
+    /**
+     * 
+     * @param query 
+     * @returns 
+     */
     mountProjection(query: any): string {
-        console.log(query['projection']);
         return query['projection'] ? query['projection'] : '-company';
     }
 

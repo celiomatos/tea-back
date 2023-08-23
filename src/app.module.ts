@@ -10,7 +10,9 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/teadb'),
+    MongooseModule.forRoot(
+      'mongodb+srv://celiormmatos:s6Xwxpfzef7vt9d5@cluster0.dxruln3.mongodb.net/',
+      { dbName: 'teadb' }),
     UserModule],
   controllers: [
     AppController,

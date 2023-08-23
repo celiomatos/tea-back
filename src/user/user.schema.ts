@@ -11,7 +11,7 @@ export class User extends Document {
     @Prop({ require: [true, 'Login do usuário é obrigatório'], unique: true, trim: true })
     login: string;
 
-    @Prop({ min: [6, 'Senha deve conter no mínimo 6 caracteres'] })
+    @Prop({ minlength: [6, 'Senha deve conter no mínimo 6 caracteres'] })
     pw: string;
 
     @Prop()
