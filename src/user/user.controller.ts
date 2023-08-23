@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req } from "@nestjs/common";
 import { Request } from "express";
 import { Pagination } from "src/model/pagination";
-import { TeaException } from "src/model/tea-exception";
 import { User } from "src/user/user.schema";
 import { UserService } from "src/user/user.service";
 
@@ -17,7 +16,7 @@ export class UserController {
 
     @Get('/:_id')
     async findById(@Param() _id: string): Promise<User> {
-        throw new TeaException('Usuário não encontrado');
+        return this.service.findById(_id);
     }
 
     @Post()

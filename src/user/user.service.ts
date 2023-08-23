@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { Company } from "src/company/company.schema";
 import { Pagination } from "src/model/pagination";
 import { User } from "src/user/user.schema";
 
@@ -24,10 +25,27 @@ export class UserService {
 
     /**
      * 
+     * @param _id 
+     * @returns 
+     */
+    async findById(_id: string): Promise<User> {
+        return this.model.findById(new Object(_id));
+    }
+
+    /**
+     * 
      * @param user 
      * @returns 
      */
     async save(user: User): Promise<User> {
+        console.log(user.name);
+
+        const company = new Company();
+        company._id = "64de77dcc405801c825cd199";
+        company.name = "C R M Matos";
+        user.populate('company', company);
+        console.log(user.company.id);
+
         return new this.model(user).save();
     }
 

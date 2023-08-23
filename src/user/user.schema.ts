@@ -14,7 +14,7 @@ export class User extends Document {
     @Prop({ minlength: [6, 'Senha deve conter no mínimo 6 caracteres'] })
     pw: string;
 
-    @Prop()
+    @Prop({ select: false })
     company: Company;
 }
 
